@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.hnust.dao.IUserDao">
+	<resultMap id="BaseResultMap" type="com.cn.hnust.pojo.User">
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="age" jdbcType="INTEGER" property="age" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_name, password, age
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_t
+		where user_name = #{userName,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from user_t
+		where user_name = #{userName,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.cn.hnust.pojo.User">
+		insert into user_t (user_name, password,
+		age)
+		values (#{userName,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{age,jdbcType=INTEGER})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.cn.hnust.pojo.User">
+		update user_t
+		set user_name = #{userName,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		age = #{age,jdbcType=INTEGER}
+		where username = #{userName,jdbcType=VARCHAR}
+	</update>
+</mapper>
